@@ -1,11 +1,13 @@
 import os, sys
 
-from distutils.core import setup
+from setuptools import setup, Extension
 from distutils.command import build_ext
 
-from distutils.core import Extension
-
-import pybind11
+try:
+    import pybind11
+    pybind11_include_path = pybind11.get_include()
+except ImportError:
+    pybind11_include_path = ""
 
 ext_name = "boost_geometry"
 
@@ -13,7 +15,7 @@ py_ver = sys.version_info[:2]
 
 include_dirs = [
     "./include",
-    pybind11.get_include(),
+    pybind11_include_path,
 ]
 libraries = []
 
