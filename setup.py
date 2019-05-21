@@ -1,9 +1,9 @@
 import os, sys
 
-from setuptools.core import setup
-from setuptools.command import build_ext
+from distutils.core import setup
+from distutils.command import build_ext
 
-from setuptools.core import Extension
+from distutils.core import Extension
 
 import pybind11
 
