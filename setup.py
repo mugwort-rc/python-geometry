@@ -1,9 +1,9 @@
 import os, sys
 
-from distutils.core import setup
-from distutils.command import build_ext
+from setuptools.core import setup
+from setuptools.command import build_ext
 
-from distutils.core import Extension
+from setuptools.core import Extension
 
 import pybind11
 
@@ -41,15 +41,22 @@ ext = Extension(name="{0}.__{0}".format(ext_name),
                 extra_compile_args=extras)
 
 
+install_requires = []
+requirements_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "requirements.txt")
+if os.path.exists(requirements_path):
+    with open(requirements_path) as fp:
+        install_requires = fp.read().splitlines()
+
 setup(
     name=ext_name,
     packages=[ext_name],
     license="BSL-1.0",
-    classifies=[
+    classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Boost Software License 1.0 (BSL-1.0)",
         "Programming Language :: Python :: 3.6",
     ],
     ext_modules=[ext],
+    install_requires=install_requires,
 )
